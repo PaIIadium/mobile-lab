@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Kuchin_IP-84</string>
+    <string name="title_info">Інформація про студента</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="empty_tab">Empty</string>
+    <string name="main_text">Кучін Владислав\nГрупа ІП-84\nІП-8415</string>
+
+</resources>

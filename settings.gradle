@@ -1,0 +1,2 @@
+include ':app'
+rootProject.name = "Kuchin_IP-84"
