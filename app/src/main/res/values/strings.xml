@@ -4,7 +4,11 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-    <string name="empty_tab">Empty</string>
+    <string name="title_graphics">Графіки</string>
     <string name="main_text">Кучін Владислав\nГрупа ІП-84\nІП-8415</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="graphic">Графік</string>
+    <string name="diagram">Діаграма</string>
 
 </resources>
