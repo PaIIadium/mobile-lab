@@ -32,6 +32,15 @@ class MainActivity : AppCompatActivity() {
                     }
                     true
                 }
+                R.id.books_fragment -> {
+                    supportFragmentManager.commit {
+                        replace(R.id.fragment_container, BooksFragment())
+                    }
+                    supportFragmentManager.commit {
+                        replace(R.id.fragment_upper_container, EmptyFragment())
+                    }
+                    true
+                }
                 else -> true
             }
         }

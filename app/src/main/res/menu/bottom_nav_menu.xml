@@ -10,5 +10,9 @@
         android:id="@+id/graphics_fragment"
         android:icon="@drawable/ic_graphics"
         android:title="@string/title_graphics" />
+    <item
+        android:id="@+id/books_fragment"
+        android:icon="@drawable/ic_book"
+        android:title="@string/title_books" />
 
 </menu>

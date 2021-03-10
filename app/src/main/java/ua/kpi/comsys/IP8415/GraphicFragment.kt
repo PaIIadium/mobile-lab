@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -69,12 +70,17 @@ class GraphicFragment : Fragment(R.layout.fragment_graphics) {
 
         override fun onDraw(canvas: Canvas) {
             super.onDraw(canvas)
-            startX = x
-            startY = y
+            startX = translationX
+            startY = translationY
             endX = startX + width
             endY = startY + height
             avgY = (startY + endY) / 2
             avgX = (startX + endX) / 2
+
+            Log.d("TAG", startX.toString())
+            Log.d("TAG", startY.toString())
+            Log.d("TAG", endX.toString())
+            Log.d("TAG", endY.toString())
 
             drawAxes(canvas)
             drawGraphic(canvas)
@@ -85,7 +91,7 @@ class GraphicFragment : Fragment(R.layout.fragment_graphics) {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val root = inflater.inflate(R.layout.fragment_graphics, container, false) as ConstraintLayout
         val view = DrawView(this.context)
         root.addView(view)
