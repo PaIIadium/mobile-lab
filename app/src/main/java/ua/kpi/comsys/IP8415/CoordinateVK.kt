@@ -7,11 +7,24 @@ import kotlin.math.sign
 class CoordinateVK(val degrees: Int, val minutes: UInt, var seconds: UInt, val direction: Direction) {
 
  init {
-     if (degrees < -90 && degrees > 90
-            && minutes < 0u && minutes >= 60u
-            && seconds < 0u && seconds >= 60u) {
-            throw Error("Wrong coordinate")
-        }
+     if (minutes < 0u || minutes >= 60u || seconds < 0u || seconds >= 60u) {
+         throw Error("Wrong coordinate")
+     }
+     if (direction == Direction.latitude) {
+         if (degrees < -90 || degrees > 90) {
+             throw Error("Wrong coordinate")
+         }
+         if ((degrees == 90 || degrees == -90) && (minutes != 0u || seconds != 0u)) {
+             throw Error("Wrong coordinate")
+         }
+     } else {
+         if (degrees < -180 || degrees > 180) {
+             throw Error("Wrong coordinate")
+         }
+         if ((degrees == 180 || degrees == -180) && (minutes != 0u || seconds != 0u)) {
+             throw Error("Wrong coordinate")
+         }
+     }
  }
     constructor() : this(0, 0u, 0u, Direction.longitude)
 
