@@ -6,10 +6,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/plus_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layoutDirection="inherit"
+            app:srcCompat="@android:drawable/ic_input_add" />
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchBook"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <SearchView
+        android:id="@+id/searchBook"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <TextView
+        android:id="@+id/no_items_found"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_items_found"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

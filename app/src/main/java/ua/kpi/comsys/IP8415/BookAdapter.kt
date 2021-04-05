@@ -9,11 +9,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class BookViewHolder(itemView: View, private val ctx : Context) : RecyclerView.ViewHolder(itemView) {
-    private val bookImage = itemView.findViewById<ImageView>(R.id.bookImage)
-    private val bookTitle = itemView.findViewById<TextView>(R.id.bookTitle)
-    private val bookSubtitle = itemView.findViewById<TextView>(R.id.bookSubtitle)
-    private val bookPrice = itemView.findViewById<TextView>(R.id.bookPrice)
-    private val bookIsbn13 = itemView.findViewById<TextView>(R.id.bookIsbn13)
+    private val bookImage = itemView.findViewById<ImageView>(R.id.book_image)
+    private val bookTitle = itemView.findViewById<TextView>(R.id.book_title)
+    private val bookSubtitle = itemView.findViewById<TextView>(R.id.book_subtitle)
+    private val bookPrice = itemView.findViewById<TextView>(R.id.book_price)
+    private val bookIsbn13 = itemView.findViewById<TextView>(R.id.book_isbn13)
 
     fun bind(book : Book) {
         bookImage.setImageBitmap(book.getImageBitmap(ctx))
@@ -24,9 +24,13 @@ class BookViewHolder(itemView: View, private val ctx : Context) : RecyclerView.V
     }
 }
 
-class BookAdapter(var bookList : ArrayList<Book>, private val ctx : Context) : RecyclerView.Adapter<BookViewHolder>() {
+class BookAdapter(var bookList : ArrayList<Book>, private val ctx : Context,
+                  private val clickListener : BookClickListener)
+    : RecyclerView.Adapter<BookViewHolder>() {
+
     fun setItems(bookList : ArrayList<Book>) {
         this.bookList = bookList
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
@@ -35,10 +39,28 @@ class BookAdapter(var bookList : ArrayList<Book>, private val ctx : Context) : R
     }
 
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
-        holder.bind(bookList[position])
+        val book = bookList[position]
+        holder.bind(book)
+        holder.itemView.setOnClickListener {
+            clickListener.onClick(book.isbn13)
+        }
+    }
+
+    class BookClickListener(val clickListener: (isbn13: String) -> Unit) {
+        fun onClick(isbn13: String) = clickListener(isbn13)
     }
 
     override fun getItemCount(): Int {
         return bookList.size
+    }
+
+    fun addBook(book: Book) {
+        bookList.add(book)
+        notifyItemInserted(itemCount - 1)
+    }
+
+    fun removeBook(position: Int) {
+        bookList.removeAt(position)
+        notifyItemRemoved(position)
     }
 }
