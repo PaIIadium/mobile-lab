@@ -91,7 +91,7 @@ class DiagramFragment : Fragment(R.layout.fragment_graphics) {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val root = inflater.inflate(R.layout.fragment_diagram, container, false) as ConstraintLayout
         val diagramView = root.findViewById<FrameLayout>(R.id.diagram)
         val view = DrawView(this.context)

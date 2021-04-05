@@ -9,7 +9,7 @@ class BooksLoader(jsonPath : String, ctx: Context) {
     init {
         val stream = ctx.assets.open(jsonPath)
         val jsonString = stream.bufferedReader().readText()
-        books = Json.decodeFromString<BooksJSON>(jsonString)
+        books = Json.decodeFromString(jsonString)
     }
 
     fun getBooks() : ArrayList<Book> {

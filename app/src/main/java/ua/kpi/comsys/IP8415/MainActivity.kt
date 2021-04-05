@@ -2,6 +2,8 @@ package ua.kpi.comsys.IP8415
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import ua.kpi.comsys.IP8415.ui.home.HomeFragment
