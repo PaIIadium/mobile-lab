@@ -14,5 +14,9 @@
         android:id="@+id/books_fragment"
         android:icon="@drawable/ic_book"
         android:title="@string/title_books" />
+    <item
+        android:id="@+id/pictures_fragment"
+        android:icon="@android:drawable/ic_menu_gallery"
+        android:title="@string/title_images" />
 
 </menu>

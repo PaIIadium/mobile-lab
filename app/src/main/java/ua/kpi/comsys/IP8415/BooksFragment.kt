@@ -19,23 +19,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class SharedViewModel : ViewModel() {
-    val bookAdapter = MutableLiveData<BookAdapter?>()
-    val isbn13 = MutableLiveData<String>()
-    val parentFragmentManager = MutableLiveData<FragmentManager?>()
 
-    fun setBookAdapter(newAdapter: BookAdapter?) {
-        bookAdapter.value = newAdapter
-    }
-
-    fun onBookClicked(newIsbn13 : String) {
-        isbn13.value = newIsbn13
-    }
-
-    fun setFragmentManager(fragmentManager: FragmentManager) {
-        parentFragmentManager.value = fragmentManager
-    }
-}
 
 class BooksFragment : Fragment(R.layout.fragment_books) {
     private val model: SharedViewModel by activityViewModels()

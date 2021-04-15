@@ -43,6 +43,15 @@ class MainActivity : AppCompatActivity() {
                     }
                     true
                 }
+                R.id.pictures_fragment -> {
+                    supportFragmentManager.commit {
+                        replace(R.id.fragment_container, PicturesFragment())
+                    }
+                    supportFragmentManager.commit {
+                        replace(R.id.fragment_upper_container, EmptyFragment())
+                    }
+                    true
+                }
                 else -> true
             }
         }

@@ -16,5 +16,7 @@
     <string name="subtitle">Subtitle</string>
     <string name="title">Title</string>
     <string name="no_items_found">No items found</string>
+    <string name="ic_images">Зображення</string>
+    <string name="title_images">Зображення</string>
 
 </resources>
