@@ -1,17 +1,17 @@
 package ua.kpi.comsys.IP8415
 
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import ua.kpi.comsys.IP8415.Adapters.ImageAdapter
 
 class SharedViewModel : ViewModel() {
     val bookAdapter = MutableLiveData<BookAdapter?>()
     val imageAdapter = MutableLiveData<ImageAdapter?>()
     val isbn13 = MutableLiveData<String>()
-    val parentFragmentManager = MutableLiveData<FragmentManager?>()
+    val extendedBook = MutableLiveData<ExtendedBookServerResponse>()
 
     fun setBookAdapter(newAdapter: BookAdapter?) {
-        bookAdapter.value = newAdapter
+        bookAdapter.postValue(newAdapter)
     }
 
     fun setImageAdapter(newAdapter: ImageAdapter?) {
@@ -22,7 +22,7 @@ class SharedViewModel : ViewModel() {
         isbn13.value = newIsbn13
     }
 
-    fun setFragmentManager(fragmentManager: FragmentManager) {
-        parentFragmentManager.value = fragmentManager
+    fun setExtendedBook(newExtendedBook: ExtendedBookServerResponse) {
+        extendedBook.value = newExtendedBook
     }
 }

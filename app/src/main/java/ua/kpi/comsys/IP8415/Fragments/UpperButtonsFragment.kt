@@ -1,10 +1,11 @@
-package ua.kpi.comsys.IP8415
+package ua.kpi.comsys.IP8415.Fragments
 
 import android.os.Bundle
 import android.view.View
 import android.widget.RadioButton
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
+import ua.kpi.comsys.IP8415.R
 
 class UpperButtonsFragment : Fragment(R.layout.fragment_upper_buttons) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/graphics_fragment"
-        android:name="ua.kpi.comsys.IP8415.GraphicFragment"
+        android:name="ua.kpi.comsys.IP8415.Fragments.GraphicFragment"
         android:label="@string/title_graphics" />
 
     <fragment

@@ -1,4 +1,4 @@
-package ua.kpi.comsys.IP8415
+package ua.kpi.comsys.IP8415.Fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +10,9 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.textfield.TextInputEditText
+import ua.kpi.comsys.IP8415.Book
+import ua.kpi.comsys.IP8415.R
+import ua.kpi.comsys.IP8415.SharedViewModel
 
 class AddBookFragment : Fragment(R.layout.fragment_add_book) {
     private val model: SharedViewModel by activityViewModels()
