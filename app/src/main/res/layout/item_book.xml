@@ -17,10 +17,13 @@
         android:id="@+id/book_subtitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/book_isbn13"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/book_image"
-        app:layout_constraintTop_toBottomOf="@+id/book_title" />
+        app:layout_constraintTop_toBottomOf="@+id/book_title"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/book_image"
