@@ -28,7 +28,7 @@ class AddBookFragment : Fragment(R.layout.fragment_add_book) {
         addBookButton.setOnClickListener {
             val priceEditText = root.findViewById<EditText>(R.id.new_book_price)
             val price = priceEditText.text.toString()
-            val regEx = Regex("[0-9]+\\.[0-9][0-9]")
+            val regEx = Regex("^\\d+(\\.\\d{1,2})?\$")
             if (!price.matches(regEx)) {
                 priceEditText.error = "Wrong value"
                 return@setOnClickListener
