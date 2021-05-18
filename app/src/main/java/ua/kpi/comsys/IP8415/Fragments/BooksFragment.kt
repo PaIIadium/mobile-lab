@@ -81,9 +81,11 @@ class BooksFragment : Fragment(R.layout.fragment_books) {
                     activity?.supportFragmentManager?.commit {
                         replace(R.id.recycler_view_fragment, ProgressBarFragment())
                     }
-                    BooksLoader(newTextTrimmed) {
-                        noItemsFoundText.isVisible = it.isEmpty() == true
-                        setBookAdapter(it)
+                    model.database.value?.let { db ->
+                        BooksLoader(newTextTrimmed, db) {
+                            noItemsFoundText.isVisible = it.isEmpty() == true
+                            setBookAdapter(it as ArrayList<Book>)
+                        }
                     }
                     lastText = newTextTrimmed
                 } else if (newTextTrimmed != null && newTextTrimmed != lastText) {

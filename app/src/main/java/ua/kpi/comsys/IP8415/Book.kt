@@ -11,7 +11,7 @@ import kotlinx.serialization.Transient
 import retrofit2.Retrofit
 
 @Serializable
-class Book(val title : String, val subtitle: String, val isbn13: String, val price: String, private val image: String) {
+class Book(val title : String, val subtitle: String, val isbn13: String, val price: String, val image: String) {
     @Transient
     var bookImage: Bitmap? = null
     fun getImageBitmap(viewHolder: BookViewHolder) {

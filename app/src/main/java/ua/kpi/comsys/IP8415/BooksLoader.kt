@@ -9,8 +9,10 @@ import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType
 import retrofit2.Retrofit
+import ua.kpi.comsys.IP8415.Database.BookEntity
+import ua.kpi.comsys.IP8415.Database.Database
 
-class BooksLoader(name: String, cb: (ArrayList<Book>) -> Unit) {
+class BooksLoader(val name: String, db : Database, cb: (List<Book>) -> Unit) {
     init {
         val contentType = MediaType.get("application/json")
         val json = Json { ignoreUnknownKeys = true }
@@ -21,11 +23,60 @@ class BooksLoader(name: String, cb: (ArrayList<Book>) -> Unit) {
         val apiService = retrofit.create(APIService::class.java)
 
         GlobalScope.launch {
-            val response = apiService.getBooks(name)
-            val books = response.books
-            withContext(Dispatchers.Main) {
-                cb(books)
+            try {
+                val response = apiService.getBooks(name)
+                val books = response.books
+                val bookEntities = createBookEntities(books)
+                for (book in bookEntities) {
+                    db.getDao().insertBook(book)
+                }
+
+                withContext(Dispatchers.Main) {
+                    cb(books)
+                }
+            } catch (err: Error) {
+                val bookEntities = db.getDao().getBooksByUrl(name)
+                if (bookEntities.isNotEmpty()) {
+                    val books = createBooks(bookEntities)
+                    withContext(Dispatchers.Main) {
+                        cb(books)
+                    }
+                } else {
+                    cb(listOf())
+                }
             }
         }
     }
+
+    fun createBookEntities(books: List<Book>) : List<BookEntity> {
+        val bookEntities = mutableListOf<BookEntity>()
+        for (book in books) {
+            val bookEntity = BookEntity(
+                book.title,
+                book.subtitle,
+                book.isbn13,
+                book.price,
+                book.image,
+            )
+            bookEntities.add(bookEntity)
+        }
+        return bookEntities
+    }
+
+    fun createBooks(bookEntities: List<BookEntity>) : List<Book> {
+        val books = mutableListOf<Book>()
+
+        for (book in bookEntities) {
+            val book = Book(
+                book.title,
+                book.subtitle,
+                book.isbn13,
+                book.price,
+                book.image,
+            )
+            books.add(book)
+        }
+        return books
+    }
+
 }
