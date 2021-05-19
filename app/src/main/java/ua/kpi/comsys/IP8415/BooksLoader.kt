@@ -1,5 +1,6 @@
 package ua.kpi.comsys.IP8415
 
+import android.util.Log
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -12,7 +13,8 @@ import retrofit2.Retrofit
 import ua.kpi.comsys.IP8415.Database.BookEntity
 import ua.kpi.comsys.IP8415.Database.Database
 
-class BooksLoader(val name: String, db : Database, cb: (List<Book>) -> Unit) {
+class BooksLoader(val name: String, val db : Database, val cb: (List<Book>) -> Unit) {
+    var apiService : APIService
     init {
         val contentType = MediaType.get("application/json")
         val json = Json { ignoreUnknownKeys = true }
@@ -20,29 +22,31 @@ class BooksLoader(val name: String, db : Database, cb: (List<Book>) -> Unit) {
             .addConverterFactory(json.asConverterFactory(contentType))
             .build()
 
-        val apiService = retrofit.create(APIService::class.java)
+        apiService = retrofit.create(APIService::class.java)
+    }
 
-        GlobalScope.launch {
+    fun load() {
+        GlobalScope.launch(Dispatchers.IO) {
             try {
                 val response = apiService.getBooks(name)
                 val books = response.books
                 val bookEntities = createBookEntities(books)
                 for (book in bookEntities) {
-                    db.getDao().insertBook(book)
+                    val existingBooks = db.getDao().getBookByIsbn13(book.isbn13)
+                    if (existingBooks.isEmpty()) db.getDao().insertBook(book)
                 }
-
                 withContext(Dispatchers.Main) {
                     cb(books)
                 }
-            } catch (err: Error) {
-                val bookEntities = db.getDao().getBooksByUrl(name)
+            } catch (err: Exception) {
+                val bookEntities = db.getDao().getBooksByUrl("%${name}%")
                 if (bookEntities.isNotEmpty()) {
                     val books = createBooks(bookEntities)
                     withContext(Dispatchers.Main) {
                         cb(books)
                     }
                 } else {
-                    cb(listOf())
+                    cb(arrayListOf())
                 }
             }
         }

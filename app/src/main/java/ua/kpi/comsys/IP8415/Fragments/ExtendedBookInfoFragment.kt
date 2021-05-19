@@ -37,7 +37,7 @@ class ExtendedBookInfoFragment : Fragment(R.layout.fragment_extended_book_info) 
         root.findViewById<TextView>(R.id.year_extended).text = "Year: ${book.year}"
         root.findViewById<TextView>(R.id.rating_extended).text = "Rating: ${book.rating} / 5"
         val imageLoader = ImageLoader()
-        imageLoader.getImage(book.image) {
+        imageLoader.getImage(book.image, requireContext()) {
             root.findViewById<ImageView>(R.id.image_extended).setImageBitmap(it)
         }
     }

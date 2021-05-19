@@ -1,5 +1,6 @@
 package ua.kpi.comsys.IP8415
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,8 +15,8 @@ class BookViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val bookPrice = itemView.findViewById<TextView>(R.id.book_price)
     private val bookIsbn13 = itemView.findViewById<TextView>(R.id.book_isbn13)
 
-    fun bind(book : Book) {
-        book.getImageBitmap(this)
+    fun bind(book : Book, ctx: Context) {
+        book.getImageBitmap(this, ctx)
         bookTitle.text = book.title
         bookSubtitle.text = book.subtitle
         bookPrice.text = book.price
@@ -23,7 +24,7 @@ class BookViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     }
 }
 
-class BookAdapter(var bookList: ArrayList<Book>, private val clickListener: BookClickListener)
+class BookAdapter(var bookList: ArrayList<Book>, private val clickListener: BookClickListener, val ctx: Context)
     : RecyclerView.Adapter<BookViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
@@ -33,7 +34,7 @@ class BookAdapter(var bookList: ArrayList<Book>, private val clickListener: Book
 
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
         val book = bookList[position]
-        holder.bind(book)
+        holder.bind(book, ctx)
         holder.itemView.setOnClickListener {
             clickListener.onClick(book.isbn13)
         }

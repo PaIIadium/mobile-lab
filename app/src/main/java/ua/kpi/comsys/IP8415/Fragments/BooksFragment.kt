@@ -1,6 +1,7 @@
 package ua.kpi.comsys.IP8415.Fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,7 +55,7 @@ class BooksFragment : Fragment(R.layout.fragment_books) {
                 addToBackStack(null)
             }
         }
-        model.setBookAdapter(context?.let { BookAdapter(books, clickListener) })
+        model.setBookAdapter(context?.let { BookAdapter(books, clickListener, requireContext()) })
     }
 
     private fun setPlusButtonClickListener(root: View) {
@@ -82,10 +83,11 @@ class BooksFragment : Fragment(R.layout.fragment_books) {
                         replace(R.id.recycler_view_fragment, ProgressBarFragment())
                     }
                     model.database.value?.let { db ->
-                        BooksLoader(newTextTrimmed, db) {
+                        val bl = BooksLoader(newTextTrimmed, db) {
                             noItemsFoundText.isVisible = it.isEmpty() == true
                             setBookAdapter(it as ArrayList<Book>)
                         }
+                        bl.load()
                     }
                     lastText = newTextTrimmed
                 } else if (newTextTrimmed != null && newTextTrimmed != lastText) {

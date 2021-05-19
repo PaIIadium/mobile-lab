@@ -38,11 +38,13 @@ class PicturesFragment: Fragment(R.layout.fragment_images) {
             createImageAdapter()
             recyclerView.adapter = model.imageAdapter.value
             fillLoadingImages()
-            ImagesURLLoader("night+city", 27) {imagesURL ->
-                for (i in imagesURL.indices) {
-                    ImageLoader().getImage(imagesURL[i].webformatURL) { image ->
-                        model.imageAdapter.value?.imageList?.set(i, image)
-                        model.imageAdapter.value?.notifyDataSetChanged()
+            model.database.value?.let {
+                ImagesURLLoader("night+city", 27, it) { imagesURL ->
+                    for (i in imagesURL.indices) {
+                        ImageLoader().getImage(imagesURL[i].webformatURL, requireContext()) { image ->
+                            model.imageAdapter.value?.imageList?.set(i, image)
+                            model.imageAdapter.value?.notifyDataSetChanged()
+                        }
                     }
                 }
             }

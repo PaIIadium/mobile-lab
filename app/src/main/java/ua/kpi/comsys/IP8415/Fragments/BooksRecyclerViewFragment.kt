@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.commit
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,7 +27,16 @@ class BooksRecyclerViewFragment : Fragment(R.layout.fragment_recycler_view) {
         val root = inflater.inflate(R.layout.fragment_recycler_view, container, false) as ConstraintLayout
         val recyclerView = root.findViewById<RecyclerView>(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(this.context)
-        recyclerView.adapter = model.bookAdapter.value
+        val bookList = model.bookAdapter.value?.bookList
+        val clickListener = BookAdapter.BookClickListener { isbn13: String ->
+            activity?.supportFragmentManager?.commit {
+                model.onBookClicked(isbn13)
+                replace(R.id.fragment_container, ExtendedBookScreenFragment())
+                addToBackStack(null)
+            }
+        }
+        val adapter = bookList?.let { BookAdapter(it, clickListener, requireContext()) }
+        recyclerView.adapter = adapter
         setSwipeCallback(recyclerView)
         return root
     }
